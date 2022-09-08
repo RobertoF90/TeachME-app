@@ -1,0 +1,167 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+h1 {
+  color: red;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.app {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+
+  padding: 4rem;
+  border: 2px solid #000;
+  border-radius: 7px;
+}
+
+.back-arrow {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  cursor: pointer;
+  background-color: #eee;
+  border-radius: 50%;
+
+  padding: 1rem;
+  font-size: 1.6rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #ccc;
+
+  font-size: 1.6rem;
+
+  border-radius: 7px;
+}
+
+.btn--google {
+  display: flex;
+  gap: 1rem;
+  background-color: #f00;
+  color: #fff;
+}
+
+/* DASHBOARD */
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 20fr 80fr;
+}
+
+.header {
+  grid-column: span 2;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1rem 2rem;
+
+  border-bottom: 1px solid #000;
+}
+
+.header h1 {
+  font-size: 3.2rem;
+}
+
+.profile-picture {
+  height: 50px;
+  border-radius: 50%;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+
+  padding: 1.5rem 0;
+
+  border-right: 1px solid #000;
+}
+
+.aside--content {
+  font-size: 1.4rem;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+
+  padding: 2rem;
+}
+
+.main--top {
+  grid-column: span 3;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 1rem;
+
+  font-size: 2rem;
+}
+
+.main__top--sub-heading {
+  color: blue;
+}
+
+.main--content {
+  padding: 1.5rem 0;
+}
+
+.main__content--element {
+  font-size: 2rem;
+}
+
+/* TEACHER CREATE */
+
+.dashboard-create-top {
+  margin: 2rem 0;
+  grid-column: span 3;
+
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.dashboard-create-main {
+  grid-column: span 3;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}

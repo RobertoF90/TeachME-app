@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="dashboard">
+      <header class="header">
+        <a href="courses/create">Create</a>
+        <h1>TEACHER DASHBOARD</h1>
+        <button>Profile</button>
+      </header>
+      <aside class="aside">
+        <h2>Courses</h2>
+        <div class="aside-list">
+          <% courses.forEach(course => { %>
+          <div class="course" data-id="<%=course._id%>">
+            <a><%=course.title %></a>
+          </div>
+          <% })%>
+        </div>
+      </aside>
+      <main class="main">
+        <div class="main--top">
+          <h2>Hello <%= userName%></h2>
+          <h3>Students</h3>
+        </div>
+        <div class="main--content">
+          <% students.forEach(st => { %>
+          <div class="main__content--element student" data-id="<%=st._id%>">
+            <a><%=st.displayName %></a>
+          </div>
+          <% })%>
+        </div>
+      </main>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </body>
+</html>
