@@ -3,7 +3,10 @@ const passport = require('passport');
 const crypto = require('crypto');
 const validator = require('validator');
 const router = express.Router();
-const LocalUser = require('../models/LocalUser');
+const User = require('../models/User');
+const bcrypt = require('bcrypt');
+
+const userService = require('../config/user')(User);
 
 // @desc Local Auth login
 // @route GET /auth/login
@@ -22,7 +25,7 @@ router.post('/login', (req, res, next) => {
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false,
   });
-  console.log(validationErrors);
+  console.log('validationErrors');
 
   passport.authenticate('local', (err, user, info) => {
     if (err) {
@@ -45,56 +48,34 @@ router.post('/login', (req, res, next) => {
 // @desc Local Auth signup
 // @route POST /auth/signup
 
-router.post('/signup', (req, res, next) => {
-  const validationErrors = [];
-  if (!validator.isEmail(req.body.email))
-    validationErrors.push({ msg: 'Please enter a valid email address.' });
-  if (!validator.isLength(req.body.password, { min: 8 }))
-    validationErrors.push({
-      msg: 'Password must be at least 8 characters long',
-    });
-  if (req.body.password !== req.body.confirmPassword)
-    validationErrors.push({ msg: 'Passwords do not match' });
+router.post('/signup', async (req, res, next) => {
+  const { username, email, password } = req.body;
 
-  if (validationErrors.length) {
-    req.flash('errors', validationErrors);
-    return res.redirect('../signup');
+  if (password.length < 8) {
+    req.flash(
+      'error',
+      'Account not created. Password must be 7+ characters long'
+    );
+    return res.redirect('/local/signup');
   }
-  req.body.email = validator.normalizeEmail(req.body.email, {
-    gmail_remove_dots: false,
-  });
 
-  const user = new LocalUser({
-    userName: req.body.userName,
-    email: req.body.email,
-    password: req.body.password,
-  });
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-  LocalUser.findOne(
-    { $or: [{ email: req.body.email }, { userName: req.body.userName }] },
-    (err, existingUser) => {
-      if (err) {
-        return next(err);
-      }
-      if (existingUser) {
-        req.flash('errors', {
-          msg: 'Account with that email address or username already exists.',
-        });
-        return res.redirect('../signup');
-      }
-      user.save((err) => {
-        if (err) {
-          return next(err);
-        }
-        req.logIn(user, (err) => {
-          if (err) {
-            return next(err);
-          }
-          res.redirect('/dashboard');
-        });
-      });
-    }
-  );
+  try {
+    await userService.addLocalUser({
+      username,
+      email,
+      password: hashedPassword,
+    });
+  } catch (e) {
+    req.flash(
+      'error',
+      'Error creating a new account. Try a different login method.'
+    );
+    return res.redirect('/signup');
+  }
+
+  return res.redirect('/dashboard');
 });
 
 // @desc Auth with Google
@@ -103,7 +84,7 @@ router.post('/signup', (req, res, next) => {
 router.get(
   '/google',
   passport.authenticate('google', {
-    scope: ['profile '],
+    scope: ['profile', 'email'],
   })
 );
 

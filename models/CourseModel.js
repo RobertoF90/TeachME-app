@@ -9,7 +9,7 @@ const CourseSchema = new mongoose.Schema({
   students: [
     {
       type: mongoose.Schema.ObjectId,
-      ref: 'GoogleUser',
+      ref: 'User',
     },
   ],
 });

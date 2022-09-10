@@ -4611,9 +4611,9 @@ var showCourse = /*#__PURE__*/function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            console.log(id);
+            // console.log(id);
             dashSubheading.textContent = 'Your courses';
-            _context2.next = 4;
+            _context2.next = 3;
             return (0, _axios.default)({
               method: 'GET',
               url: "courses/".concat(id),
@@ -4622,7 +4622,7 @@ var showCourse = /*#__PURE__*/function () {
               }
             });
 
-          case 4:
+          case 3:
             res = _context2.sent;
             course = res.data.course;
             dashBody.innerHTML = "\n  <div class=\"course\">\n    <h3 class=\"course--title\">".concat(course.title, "</h3>\n    <button class=\"leave-btn\" data-id=\"").concat(id, "\">leave</button>\n  </div>\n  ");
@@ -4630,7 +4630,7 @@ var showCourse = /*#__PURE__*/function () {
               leaveCourse(id);
             });
 
-          case 8:
+          case 7:
           case "end":
             return _context2.stop();
         }
@@ -4645,13 +4645,13 @@ var showCourse = /*#__PURE__*/function () {
 
 enrolledCourses.forEach(function (course) {
   course.addEventListener('click', function (e) {
-    console.log(e.target);
+    // console.log(e.target);
     showCourse(e.target.dataset.id);
   });
 });
 courses.forEach(function (el) {
   el.addEventListener('click', function (e) {
-    console.log(e.target);
+    // console.log(e.target);
     enroll(e.target.dataset.id);
   });
 });
@@ -4681,15 +4681,14 @@ var enroll = /*#__PURE__*/function () {
               }, 1500);
             }
 
-            _context3.next = 11;
+            _context3.next = 10;
             break;
 
           case 8:
             _context3.prev = 8;
             _context3.t0 = _context3["catch"](0);
-            console.log(_context3.t0);
 
-          case 11:
+          case 10:
           case "end":
             return _context3.stop();
         }
@@ -4729,7 +4728,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36931" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40833" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

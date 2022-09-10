@@ -2,29 +2,37 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-  googleId: {
+  // id: {
+  //   type: Number,
+  //   required: true,
+  // },
+  email: {
     type: String,
-    required: true,
+    required: [true, 'Please insert your email address'],
+    unique: [true, 'Email already registered'],
   },
+  password: String,
   displayName: {
     type: String,
-    required: true,
   },
   firstName: {
     type: String,
-    required: true,
   },
   lastName: {
     type: String,
-    required: true,
   },
   image: {
     type: String,
   },
+
   role: {
     type: String,
     default: 'student',
     // required: true,
+  },
+  source: {
+    type: String,
+    required: [true, 'source required'],
   },
   createdAt: {
     type: Date,
@@ -39,4 +47,4 @@ const UserSchema = new mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.model('GoogleUser', UserSchema);
+module.exports = mongoose.model('User', UserSchema);

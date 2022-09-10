@@ -6,6 +6,6 @@ const courses = document.querySelectorAll('.courses');
 
 courses.forEach((el) => {
   el.addEventListener('click', (e) => {
-    console.log(e.target);
+    console.log('e.target');
   });
 });

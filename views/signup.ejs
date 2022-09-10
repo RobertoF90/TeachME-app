@@ -14,6 +14,10 @@
     <title>Document</title>
   </head>
   <body>
+    <% if (locals.messages.errors) { %> <% messages.errors.forEach( el => { %>
+    <div class="alert alert-danger"><%= el.msg %></div>
+    <% }) %> <% } %>
+
     <div class="app">
       <a href="/">
         <i class="back-arrow fa-solid fa-arrow-left"></i>

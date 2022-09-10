@@ -1,7 +1,7 @@
 const express = require('express');
 const { ensureAuth, ensureGuest } = require('./../middleware/auth');
 const router = express.Router();
-const GoogleUser = require('./../models/GoogleUser');
+const User = require('../models/User');
 const Courses = require('./../models/CourseModel');
 // @desc Login page
 // @route GET /
@@ -26,12 +26,11 @@ router.get('/dashboard', ensureAuth, async (req, res) => {
   if (res.locals.user.role === 'student') {
     // Get all enrolled courses
     // DUPLICATE in courseRoutes
-    const enrolledCourses = await GoogleUser.findById(
-      res.locals.user.id
-    ).populate({
+    const enrolledCourses = await User.findById({
+      _id: res.locals.user.id,
+    }).populate({
       path: 'courses',
     });
-    console.log(enrolledCourses);
     // console.log(res.locals.user);
     res.render('studentDash', {
       userName: username,

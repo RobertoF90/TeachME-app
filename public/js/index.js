@@ -25,7 +25,7 @@ const leaveCourse = async (id) => {
 };
 
 const showCourse = async (id) => {
-  console.log(id);
+  // console.log(id);
   dashSubheading.textContent = 'Your courses';
   const res = await axios({
     method: 'GET',
@@ -48,14 +48,14 @@ const showCourse = async (id) => {
 
 enrolledCourses.forEach((course) => {
   course.addEventListener('click', (e) => {
-    console.log(e.target);
+    // console.log(e.target);
     showCourse(e.target.dataset.id);
   });
 });
 
 courses.forEach((el) => {
   el.addEventListener('click', (e) => {
-    console.log(e.target);
+    // console.log(e.target);
     enroll(e.target.dataset.id);
   });
 });
@@ -75,6 +75,6 @@ const enroll = async (id) => {
       }, 1500);
     }
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 };

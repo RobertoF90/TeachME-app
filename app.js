@@ -10,14 +10,14 @@ const courseRouter = require('./routes/courseRoutes');
 const userRouter = require('./routes/userRoutes');
 
 const passport = require('passport');
+const passportConfig = require('./config/passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
 dotenv.config({ path: './config/config.env' });
 
 // Passport config
-require('./config/localPassport')(passport);
-require('./config/googlePassport')(passport);
+passportConfig(passport);
 
 const app = express();
 

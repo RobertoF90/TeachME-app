@@ -1,7 +1,7 @@
 const express = require('express');
 
 const Courses = require('./../models/CourseModel');
-const GoogleUser = require('./../models/GoogleUser');
+const GoogleUser = require('../models/User');
 
 const router = express.Router();
 

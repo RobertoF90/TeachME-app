@@ -18,8 +18,8 @@
         <h2>Courses</h2>
         <div class="aside-list">
           <% courses.forEach(course => { %>
-          <div class="course" data-id="<%=course._id%>">
-            <a><%=course.title %></a>
+          <div class="course">
+            <a href="courses/<%=course._id%>"><%=course.title %></a>
           </div>
           <% })%>
         </div>
