@@ -85,7 +85,7 @@ module.exports = function () {
       cb(null, {
         id: user.id,
         name: user.firstName,
-        username: user.userName,
+        username: user.username,
         img: user.image,
         role: user.role,
         enrolledCourses: user.courses,

@@ -6,12 +6,16 @@ const UserSchema = new mongoose.Schema({
   //   type: Number,
   //   required: true,
   // },
+  username: {
+    type: String,
+  },
   email: {
     type: String,
     required: [true, 'Please insert your email address'],
     unique: [true, 'Email already registered'],
   },
   password: String,
+
   displayName: {
     type: String,
   },
@@ -43,6 +47,16 @@ const UserSchema = new mongoose.Schema({
       type: mongoose.Schema.ObjectId,
       ref: 'Course',
       active: true,
+    },
+  ],
+  homework: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Homework',
+      status: {
+        type: String,
+        default: 'incomplete',
+      },
     },
   ],
 });

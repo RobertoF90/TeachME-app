@@ -111,13 +111,14 @@ a {
 
 .aside--content {
   font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .main {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
 
   padding: 2rem;
 }
@@ -139,11 +140,20 @@ a {
 }
 
 .main--content {
-  padding: 1.5rem 0;
+  padding: 3rem 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 2rem;
 }
 
 .main__content--element {
   font-size: 2rem;
+}
+
+.main__content--element form {
+  display: flex;
+  flex-direction: column;
 }
 
 /* TEACHER CREATE */
@@ -164,4 +174,18 @@ a {
   flex-direction: column;
   gap: 2rem;
   align-items: center;
+}
+
+/* STUDENT DASHBOARD */
+
+/* STUDENT ENROLL */
+.student--enroll {
+  display: flex;
+  flex-direction: column;
+}
+
+.courses--available {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 2rem;
 }

@@ -15,8 +15,8 @@
         <button>Profile</button>
       </header>
       <aside class="aside">
-        <h2>Courses</h2>
-        <div class="aside-list">
+        <h2>Your Courses</h2>
+        <div class="aside--content">
           <% courses.forEach(course => { %>
           <div class="course">
             <a href="courses/<%=course._id%>"><%=course.title %></a>
@@ -27,14 +27,20 @@
       <main class="main">
         <div class="main--top">
           <h2>Hello <%= userName%></h2>
-          <h3>Students</h3>
+          <h3><%=course.title %> Course</h3>
         </div>
         <div class="main--content">
-          <% students.forEach(st => { %>
-          <div class="main__content--element student" data-id="<%=st._id%>">
-            <a><%=st.displayName %></a>
+          <% course.students.forEach(student => { %>
+          <div class="main__content--element">
+            <div class="student">
+              <a href="user/<%=student._id%>"><%=student.firstName %></a>
+            </div>
+
+            <!-- <div class="element--body">
+              <p>students: <%= course.students.length %></p>
+            </div> -->
+            <% })%>
           </div>
-          <% })%>
         </div>
       </main>
       <a href="/auth/logout">Logout</a>

@@ -6,6 +6,11 @@ const CourseSchema = new mongoose.Schema({
     required: true,
   },
 
+  teacher: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+  },
+
   students: [
     {
       type: mongoose.Schema.ObjectId,

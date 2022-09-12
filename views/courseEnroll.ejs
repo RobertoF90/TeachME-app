@@ -27,20 +27,20 @@
           <% })%>
         </div>
       </aside>
-      <main class="main">
+      <main class="main student--enroll">
         <div class="main--top">
           <h2>AVAILABLE COURSES</h2>
         </div>
 
         <div class="main--content">
-          <div class="main__content--element">
-            <div class="courses--available">
-              <% availableCourses.forEach(course => { %>
-              <div class="course">
-                <a href="#" data-id="<%=course._id%>"><%=course.title %></a>
-              </div>
-              <% })%>
+          <div class="main__content--element courses--available">
+            <% availableCourses.forEach(course => { %>
+            <div class="course">
+              <a href="courses/<%=course._id%>/enroll" data-id="<%=course._id%>"
+                ><%=course.title %></a
+              >
             </div>
+            <% })%>
           </div>
         </div>
       </main>

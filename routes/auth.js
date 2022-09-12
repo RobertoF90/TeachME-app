@@ -75,6 +75,7 @@ router.post('/signup', async (req, res, next) => {
     return res.redirect('/signup');
   }
 
+  console.log('redirect to dash');
   return res.redirect('/dashboard');
 });
 

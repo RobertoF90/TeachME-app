@@ -25,7 +25,7 @@
         <h2>Your Courses</h2>
         <% enrolledCourses.forEach(course => { %>
         <div class="aside--content">
-          <a href="#" class="enrolled-course" data-id="<%=course._id%>"
+          <a href="courses/<%=course._id%>" class="enrolled-course"
             ><%=course.title %></a
           >
         </div>
@@ -33,12 +33,10 @@
       </aside>
       <main class="main">
         <div class="main--top">
-          <h2>Hello <%= userName%></h2>
+          <h2>Hello <%= username%></h2>
           <h3 class="main__top--sub-heading">Latest homework</h3>
         </div>
-        <div class="main--content">
-         
-        </div>
+        <div class="main--content"></div>
       </main>
     </div>
 

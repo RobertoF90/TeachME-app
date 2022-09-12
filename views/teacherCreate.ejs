@@ -18,7 +18,7 @@
       <aside class="aside">
         <h2>Courses</h2>
 
-        <div class="aside-list">
+        <div class="aside--content">
           <% courses.forEach(course => { %>
           <div class="course">
             <a href="<%=course._id%>"><%=course.title %></a>
@@ -37,9 +37,37 @@
         </div>
 
         <div class="main--content">
-          <div class="new-course">
+          <!-- <div class="new-course">
             <form action="/courses/create/newcourse" method="POST">
               <input type="text" name="title" placeholder="Course Title" />
+              <input type="submit" value="Create" />
+            </form>
+          </div> -->
+
+          <div class="main__content--element">
+            <form action="/homework/create/newhomework" method="POST">
+              <input type="hidden" name="course" value="<%=course.id%>" />
+              <input type="text" name="title" placeholder="Homework Title" />
+
+              <div>
+                <label for="homework-type">Homework Type:</label>
+                <select name="type" id="homework-type">
+                  <option value="Composition">Composition</option>
+                  <option value="Quiz">Quiz</option>
+                </select>
+              </div>
+
+              <label for="student"> Assign to: </label>
+              <select name="student" id="student">
+                <% course.students.forEach(student => { %>
+
+                <option value="<%=student.id%>">
+                  <%=student.displayName || student.username %>
+                </option>
+
+                <% })%>
+              </select>
+
               <input type="submit" value="Create" />
             </form>
           </div>

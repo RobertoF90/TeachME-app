@@ -8,6 +8,7 @@ const viewRouter = require('./routes/viewRoutes');
 const authRouter = require('./routes/auth');
 const courseRouter = require('./routes/courseRoutes');
 const userRouter = require('./routes/userRoutes');
+const homeworkRouter = require('./routes/homeworkRoutes');
 
 const passport = require('passport');
 const passportConfig = require('./config/passport');
@@ -63,5 +64,6 @@ app.use('/', viewRouter);
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
 app.use('/courses', courseRouter);
+app.use('/homework', homeworkRouter);
 
 module.exports = app;
