@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="dashboard">
+      <header class="header">
+        <a href="/dashboard">Back</a>
+        <h1>CREATE NEW RESOURCES</h1>
+        <button>Profile</button>
+      </header>
+      <aside class="aside">
+        <h2>Courses</h2>
+
+        <div class="aside--content">
+          <% courses.forEach(course => { %>
+          <div class="course">
+            <a href="/courses/<%=course._id%>/newHomework"
+              ><%=course.title %></a
+            >
+          </div>
+          <% })%>
+        </div>
+      </aside>
+      <main class="main">
+        <div class="main--top">
+          <h2>Create new course</h2>
+        </div>
+
+        <div class="main--content">
+          <div class="main__content--element">
+            <form action="/courses/create/newcourse" method="POST">
+              <input type="text" name="title" placeholder="Course Title" />
+              <input type="submit" value="Create" />
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="../js/teacher-create.js"></script>
+  </body>
+</html>

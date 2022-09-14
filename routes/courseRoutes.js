@@ -51,8 +51,13 @@ router.post('/create/newcourse', coursesController.createCourse);
 
 router.get('/:id', coursesController.getOneCourse);
 
+// @desc Create new Homework
+// @route get :id/newHomework
+
+router.get('/:id/newHomework', coursesController.newHomework);
+
 // @desc Enroll course
-// @route PATCH enroll/:id
+// @route get :id/enroll
 
 router.get('/:id/enroll', coursesController.enrollCourse);
 

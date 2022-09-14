@@ -7,14 +7,20 @@ exports.getAllCourses = async (req, res, next) => {
     const courses = await Course.find();
 
     // Get the the enrolled courses of the user
-    const enrolledCourses = await User.findById(res.locals.user.id).populate({
-      path: 'courses',
-    });
+    // const enrolledCourses = await User.findById(res.locals.user.id).populate({
+    //   path: 'courses',
+    // });
 
-    res.render('courseEnroll', {
-      userId: res.locals.user.id,
-      availableCourses: courses,
-      enrolledCourses: enrolledCourses.courses,
+    // res.render('courseEnroll', {
+    //   userId: res.locals.user.id,
+    //   availableCourses: courses,
+    //   enrolledCourses: enrolledCourses.courses,
+    // });
+
+    res.status(200).json({
+      data: {
+        data: courses,
+      },
     });
   } catch (err) {
     console.log(err);
@@ -34,15 +40,27 @@ exports.getOneCourse = async (req, res) => {
     const course = await Course.findById({ _id: req.params.id }).populate({
       path: 'students',
     });
+    const students = await User.find();
+    // .populate({
+    //   path: 'courses',
+    // })
 
-    // console.log(students);
-    console.log(course.students);
+    // .exec();
 
-    res.render('teacherCreate', {
-      // students,
-      courses,
-      course,
+    console.log(students);
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: students,
+      },
     });
+
+    // res.render('coursePage', {
+    //   students,
+    //   courses,
+    //   course,
+    // });
   }
 };
 
@@ -55,6 +73,22 @@ exports.createCourse = async (req, res) => {
     });
     // res.redirect('/dashboard');
     console.log('course created');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.newHomework = async (req, res) => {
+  try {
+    const courses = await Course.find();
+    const course = await Course.findById({ _id: req.params.id }).populate({
+      path: 'students',
+    });
+    res.render('teacherNewHomework', {
+      // students,
+      courses,
+      course,
+    });
   } catch (error) {
     console.log(error);
   }

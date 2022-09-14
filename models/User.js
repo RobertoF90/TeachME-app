@@ -49,16 +49,22 @@ const UserSchema = new mongoose.Schema({
       active: true,
     },
   ],
-  homework: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Homework',
-      status: {
-        type: String,
-        default: 'incomplete',
-      },
-    },
-  ],
+  // homework: [
+  //   {
+  //     type: mongoose.Schema.ObjectId,
+  //     ref: 'Homework',
+  //     status: {
+  //       type: String,
+  //       default: 'incomplete',
+  //     },
+  //   },
+  // ],
+});
+
+UserSchema.virtual('homework', {
+  ref: 'Homework',
+  foreignField: 'student',
+  localField: '_id',
 });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
     <title>Document</title>
   </head>
   <body>
     <div class="dashboard">
       <header class="header">
-        <a href="courses/create">New Course</a>
+        <a href="/dashboard">Back</a>
         <h1>TEACHER DASHBOARD</h1>
         <button>Profile</button>
       </header>
@@ -26,32 +26,14 @@
       </aside>
       <main class="main">
         <div class="main--top">
-          <h2>Hello <%= userName%></h2>
-          <h3>Your Courses</h3>
+          <!-- INSERT COURSE TITLE -->
+          <h3>Course Title</h3>
         </div>
         <div class="main--content">
-          <% courses.forEach(course => { %>
+          <% students.forEach(student => { %>
           <div class="main__content--element">
-            <div class="course">
-              <a href="courses/<%=course._id%>"><%=course.title %></a>
-            </div>
-
-            <div class="element--body">
-              <p>students: <%= course.students.length %></p>
-            </div>
-
-            <div class="element--body">
-              <% course.students.forEach(student =>{ %>
-              <div class="student">
-                <h3 class="student--name"><%= student.username %></h3>
-                <h4 class="student--homework">
-                  <% let completed = 0; %> Homework: <%
-                  student.homework.forEach( homework => { homework.completed &&
-                  completed++ }) %> <%= completed %> / <%=
-                  student.homework.length %>
-                </h4>
-              </div>
-              <% })%>
+            <div class="students">
+              <a href="/user/<%=student._id%>"><%=student.username %></a>
             </div>
 
             <% })%>

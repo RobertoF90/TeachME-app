@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
 
     <title>Document</title>
   </head>
@@ -21,29 +21,19 @@
         <div class="aside--content">
           <% courses.forEach(course => { %>
           <div class="course">
-            <a href="<%=course._id%>"><%=course.title %></a>
+            <a href="/courses/<%=course._id%>/newHomework"
+              ><%=course.title %></a
+            >
           </div>
           <% })%>
         </div>
       </aside>
       <main class="main">
         <div class="main--top">
-          <button>
-            <a href="#">Create new course </a>
-          </button>
-          <button>
-            <a href="#">Create new exercise</a>
-          </button>
+          <h2>Create new exercise</h2>
         </div>
 
         <div class="main--content">
-          <!-- <div class="new-course">
-            <form action="/courses/create/newcourse" method="POST">
-              <input type="text" name="title" placeholder="Course Title" />
-              <input type="submit" value="Create" />
-            </form>
-          </div> -->
-
           <div class="main__content--element">
             <form action="/homework/create/newhomework" method="POST">
               <input type="hidden" name="course" value="<%=course.id%>" />

@@ -41,20 +41,36 @@ router.get('/dashboard', ensureAuth, async (req, res) => {
       enrolledCourses: enrolledCourses.courses,
     });
   } else {
-    const courses = await Courses.find();
-    const course = await courses[0].populate({
+    const courses = await Courses.find({
+      teacher: res.locals.user.id,
+    }).populate({
       path: 'students',
-    });
-    const homework = await Homework.find().populate({
-      path: 'student',
+      populate: { path: 'homework' },
     });
 
-    console.log(homework.student);
+    // const course = await courses[0].populate({
+    //   path: 'students',
+    // });
+    // const homework = await Homework.find().populate({
+    //   path: 'students',
+    // });
+
+    // const students = await User.find({
+    //   course:
+    // })
+
+    console.log(courses[0].students[0].homework);
+
+    // res.status(200).json({
+    //   data: {
+    //     data: courses,
+    //   },
+    // });
 
     res.render('teacherDash', {
       userName: username,
       courses,
-      course,
+      // course,
     });
   }
 });
