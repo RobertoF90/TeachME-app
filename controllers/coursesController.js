@@ -6,17 +6,6 @@ exports.getAllCourses = async (req, res, next) => {
     // GET all the courses available
     const courses = await Course.find();
 
-    // Get the the enrolled courses of the user
-    // const enrolledCourses = await User.findById(res.locals.user.id).populate({
-    //   path: 'courses',
-    // });
-
-    // res.render('courseEnroll', {
-    //   userId: res.locals.user.id,
-    //   availableCourses: courses,
-    //   enrolledCourses: enrolledCourses.courses,
-    // });
-
     res.status(200).json({
       data: {
         data: courses,
@@ -41,53 +30,20 @@ exports.getOneCourse = async (req, res) => {
       path: 'students',
     });
     const students = await User.find();
-    // .populate({
-    //   path: 'courses',
-    // })
-
-    // .exec();
-
-    console.log(students);
-
     res.status(200).json({
       status: 'success',
       data: {
         data: students,
       },
     });
-
-    // res.render('coursePage', {
-    //   students,
-    //   courses,
-    //   course,
-    // });
   }
 };
 
 exports.createCourse = async (req, res) => {
-  console.log(req.body);
   try {
     await Course.create({
       title: req.body.title,
       teacher: res.locals.user.id,
-    });
-    // res.redirect('/dashboard');
-    console.log('course created');
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-exports.newHomework = async (req, res) => {
-  try {
-    const courses = await Course.find();
-    const course = await Course.findById({ _id: req.params.id }).populate({
-      path: 'students',
-    });
-    res.render('teacherNewHomework', {
-      // students,
-      courses,
-      course,
     });
   } catch (error) {
     console.log(error);
@@ -105,16 +61,15 @@ exports.enrollCourse = async (req, res) => {
         runValidators: true,
       }
     );
-    await User.findOneAndUpdate(
-      { _id: res.locals.user.id },
-      { $push: { courses: req.params.id } },
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
+    // await User.findOneAndUpdate(
+    //   { _id: res.locals.user.id },
+    //   { $push: { courses: req.params.id } },
+    //   {
+    //     new: true,
+    //     runValidators: true,
+    //   }
+    // );
 
-    console.log('success');
     res.status(200).redirect('/dashboard');
   } catch (error) {
     console.log('error enrollment');

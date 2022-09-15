@@ -9,6 +9,8 @@ const router = express.Router();
 
 router.get('/', homeworkController.getAllHomework);
 
-router.post('/create/newHomework', homeworkController.createHomework);
+router.post('/create', homeworkController.createHomework);
+
+router.get('/:id', homeworkController.getOneHomework);
 
 module.exports = router;

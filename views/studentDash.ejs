@@ -23,7 +23,7 @@
       </header>
       <aside class="aside">
         <h2>Your Courses</h2>
-        <% enrolledCourses.forEach(course => { %>
+        <% courses.forEach(course => { %>
         <div class="aside--content">
           <a href="courses/<%=course._id%>" class="enrolled-course"
             ><%=course.title %></a
@@ -36,7 +36,25 @@
           <h2>Hello <%= username%></h2>
           <h3 class="main__top--sub-heading">Latest homework</h3>
         </div>
-        <div class="main--content"></div>
+        <div class="main--content">
+          <% courses.forEach(course => { %>
+          <div class="course--title">
+            <a href="courses/<%=course._id%>"><%=course.title %></a>
+          </div>
+          <% course.students.forEach(student => { %> <%
+          student.homework.forEach(homework => { %>
+          <a href="homework/<%=homework.id %>">
+            <div class="main__content--element">
+              <div class="element--body">
+                <h4 class="homework--title"><%= homework.title %></h4>
+                <h5><%= homework.type %></h5>
+                <h5><%= homework.status %></h5>
+              </div>
+            </div>
+          </a>
+          <% }) %>
+        </div>
+        <% })%> <% })%>
       </main>
     </div>
 
