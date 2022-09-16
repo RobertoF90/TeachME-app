@@ -5,12 +5,10 @@ const User = require('../models/User');
 
 const router = express.Router();
 
-
 // @desc Get All courses
 // @route GET /
 
 router.get('/', coursesController.getAllCourses);
-
 
 // @desc Create new course
 // @route /courses/create/newcourse
@@ -24,7 +22,6 @@ router.get('/:id', coursesController.getOneCourse);
 
 // @desc Create new Homework
 // @route get :id/newHomework
-
 
 // @desc Enroll course
 // @route get :id/enroll

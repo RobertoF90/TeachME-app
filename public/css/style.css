@@ -166,10 +166,11 @@ a {
 .element--body {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-
   justify-content: center;
   align-items: center;
+  gap: 1rem;
+
+  padding: 1rem;
 }
 
 .main__content--element form {
@@ -222,4 +223,17 @@ a {
 .ck-editor__editable[role='textbox'] {
   /* editing area */
   min-height: 200px;
+}
+
+/* HOMEWORK */
+
+.homework--content {
+  text-align: left;
+  font-size: 1.6rem;
+}
+
+.homework--status {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.8rem;
 }

@@ -1,4 +1,10 @@
-console.log('choose a course');
+// console.log('choose a course');
+
+// import { truncate, stripTags } from '../../helpers/formatText';
+
+// const homeworkBody = document.querySelector('.homework--body');
+
+// homeworkBody.innerText = stripTags(homeworkBody.innerText);
 
 // import axios from 'axios';
 

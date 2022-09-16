@@ -18,8 +18,12 @@ router.get('/signup', ensureGuest, viewsController.signup);
 
 router.get('/dashboard', ensureAuth, viewsController.getDashboard);
 
+router.get('/enroll', viewsController.enrollCourses);
+
 // @desc Render create page
 // @route GET /courses/create
+
+router.get('/courses/:id', viewsController.getCoursePage);
 
 router.get('/courses/create', viewsController.getCreateCourse);
 

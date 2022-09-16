@@ -9,6 +9,9 @@ const homeworkSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  body: {
+    type: String,
+  },
   course: {
     type: mongoose.Schema.ObjectId,
     ref: 'Course',

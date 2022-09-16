@@ -45,6 +45,8 @@ exports.createCourse = async (req, res) => {
       title: req.body.title,
       teacher: res.locals.user.id,
     });
+
+    res.redirect('/dashboard');
   } catch (error) {
     console.log(error);
   }

@@ -25,7 +25,6 @@ exports.getOneHomework = async (req, res) => {
         data: homework,
       },
     });
-
   } catch (err) {
     console.log(err);
   }
@@ -43,5 +42,25 @@ exports.createHomework = async (req, res, next) => {
     res.status(200).redirect('/dashboard');
   } catch (err) {
     console.error(err);
+  }
+};
+
+exports.deliverHomework = async (req, res) => {
+  try {
+    const homework = await Homework.findByIdAndUpdate(
+      req.params.id,
+      {
+        body: req.body.body,
+        status: 'delivered',
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    res.redirect('/dashboard');
+  } catch (err) {
+    console.log(err);
   }
 };

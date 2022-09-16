@@ -20,7 +20,7 @@
         <h2>Your Courses</h2>
 
         <div class="aside-list">
-          <% enrolledCourses.forEach(course => { %>
+          <% enrolled.forEach(course => { %>
           <div class="courses--enrolled" data-id="<%=course._id%>">
             <a><%=course.title %></a>
           </div>
@@ -34,9 +34,11 @@
 
         <div class="main--content">
           <div class="main__content--element courses--available">
-            <% availableCourses.forEach(course => { %>
+            <% courses.forEach(course => { %>
             <div class="course">
-              <a href="courses/<%=course._id%>/enroll" data-id="<%=course._id%>"
+              <a
+                href="/api/v1/courses/<%=course._id%>/enroll"
+                data-id="<%=course._id%>"
                 ><%=course.title %></a
               >
             </div>

@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Courses = require('./../models/CourseModel');
 const Homework = require('../models/HomeworkModel');
+const formatText = require('../helpers/formatText');
 
 exports.login = (req, res) => {
   res.render('login');
@@ -22,6 +23,7 @@ exports.getDashboard = async (req, res) => {
       populate: { path: 'homework' },
     });
     res.render('studentDash', {
+      formatText,
       username: username,
       userImg: res.locals.user.img,
       courses,
@@ -38,6 +40,20 @@ exports.getDashboard = async (req, res) => {
       userName: username,
       courses,
     });
+  }
+};
+
+exports.enrollCourses = async (req, res) => {
+  try {
+    const enrolled = await Courses.find({ _id: res.locals.user.id });
+    const courses = await Courses.find().populate({ path: 'students' });
+
+    res.render('courseEnroll', {
+      enrolled,
+      courses,
+    });
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -69,15 +85,44 @@ exports.getCreateCourse = async (req, res) => {
   });
 };
 
-exports.getHomeworkPage = async (req, res) => {
+exports.getCoursePage = async (req, res) => {
   const courses = await Courses.find({
-    teacher: res.locals.user.id,
+    students: res.locals.user.id,
   }).populate({
     path: 'students',
     populate: { path: 'homework' },
   });
 
+  const course = await Courses.findOne({
+    students: res.locals.user.id,
+  }).populate({
+    path: 'students',
+    populate: { path: 'homework' },
+  });
+
+  res.render('studentCoursePage', {
+    formatText,
+    courses,
+    course,
+  });
+};
+
+exports.getHomeworkPage = async (req, res) => {
+  let courses;
+  if (res.locals.user.role === 'teacher') {
+    courses = await Courses.find({
+      teacher: res.locals.user.id,
+    });
+  } else {
+    courses = await Courses.find({
+      students: res.locals.user.id,
+    });
+  }
+
+  const homework = await Homework.findById(req.params.id);
+
   res.render('homeworkPage', {
     courses,
+    homework,
   });
 };

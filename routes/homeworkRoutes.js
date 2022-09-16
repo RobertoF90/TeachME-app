@@ -11,6 +11,8 @@ router.get('/', homeworkController.getAllHomework);
 
 router.post('/create', homeworkController.createHomework);
 
+router.post('/:id/deliver', homeworkController.deliverHomework);
+
 router.get('/:id', homeworkController.getOneHomework);
 
 module.exports = router;
