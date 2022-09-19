@@ -49,6 +49,7 @@
 
               <label for="student"> Assign to: </label>
               <select name="student" id="student">
+                <option value="Everyone">Everyone</option>
                 <% course.students.forEach(student => { %>
 
                 <option value="<%=student.id%>">

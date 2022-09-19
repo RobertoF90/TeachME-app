@@ -4,39 +4,48 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
     <title>Document</title>
   </head>
   <body>
     <div class="dashboard">
       <header class="header">
-        <a href="courses/create">New Course</a>
+        <a href="/dashboard">Back</a>
         <h1>TEACHER DASHBOARD</h1>
         <button>Profile</button>
       </header>
       <aside class="aside">
-        <h2>New Homework</h2>
+        <h2>Your Courses</h2>
         <div class="aside--content">
           <% courses.forEach(course => { %>
           <div class="course">
-            <a href="courses/<%=course._id%>/newHomework"><%=course.title %></a>
+            <a href="/courses/<%=course._id%>"><%=course.title %></a>
           </div>
           <% })%>
         </div>
       </aside>
       <main class="main">
         <div class="main--top">
-          <h2>Hello <%= userName%></h2>
-          <h3>Your Courses</h3>
+          <div class="course--title">
+            <h2><%=course.title %></h2>
+          </div>
         </div>
         <div class="main--content">
-          <% courses.forEach(course => { %>
+          <% course.students.forEach(student => { %>
           <div class="main__content--element">
-            <a href="courses/<%=course._id%>">
-              <div class="course"><%=course.title %></div>
-
+            <a href="/users/<%=student.id %>">
               <div class="element--body">
-                <p>students: <%= course.students.length %></p>
+                <h4 class="student--title"><%= student.username %></h4>
+
+                <h4 class="student--homework">
+                  <% let completed = 0; %> Homework: <%
+                  student.homework.forEach( homework => { homework.status ===
+                  'Checked' && completed++ }) %> <%= completed %> / <%=
+                  student.homework.length %>
+                </h4>
+
+                <h5>Last online:</h5>
+                <h5><%= moment(student.lastOnline).format('lll') %></h5>
               </div>
             </a>
           </div>

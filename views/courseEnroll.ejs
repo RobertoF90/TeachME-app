@@ -33,17 +33,19 @@
         </div>
 
         <div class="main--content">
-          <div class="main__content--element courses--available">
-            <% courses.forEach(course => { %>
-            <div class="course">
-              <a
-                href="/api/v1/courses/<%=course._id%>/enroll"
-                data-id="<%=course._id%>"
-                ><%=course.title %></a
-              >
+          <% courses.forEach(course => { %>
+
+          <a
+            href="/api/v1/courses/<%=course._id%>/enroll"
+            data-id="<%=course._id%>"
+          >
+            <div class="main__content--element">
+              <div class="element--body"><%=course.title %></div>
+              <h5>Students:<%=course.students.length %></h5>
             </div>
-            <% })%>
-          </div>
+          </a>
+
+          <% })%>
         </div>
       </main>
     </div>

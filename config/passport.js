@@ -58,24 +58,25 @@ module.exports = function () {
     new LocalStrategy(
       { usernameField: 'email' },
       async (email, password, done) => {
-        const currentUser = await userService.getUserByEmail({ email });
+        const user = await userService.getUserByEmail({ email });
 
-        if (!currentUser) {
+        if (!user) {
           return done(null, false, {
             message: `User with email ${email} does not exist`,
           });
         }
 
-        if (currentUser.source != 'local') {
+        if (user.source != 'local') {
           return done(null, false, {
             message: `You have previously signed up with a different signin method`,
           });
         }
-        console.log('currentuser', currentUser);
-        if (!bcrypt.compareSync(password, currentUser.password)) {
+        console.log('user', user);
+        if (!bcrypt.compareSync(password, user.password)) {
           return done(null, false, { message: `Incorrect password provided` });
         }
-        return done(null, currentUser);
+
+        return done(null, user);
       }
     )
   );

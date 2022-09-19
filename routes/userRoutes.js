@@ -10,10 +10,9 @@ const router = express.Router();
 // @route GET /:id
 
 router.get('/:id', async (req, res) => {
-  const user = await User.find({ _id: req.params.id });
-
-  const homework = await Homework.find({ user: req.params.id });
-  const hwIds = homework.map((el) => el.course);
+  const user = await User.find({ _id: req.params.id }).populate({
+    path: 'homework',
+  });
 
   res.status(200).json({
     status: 'success',

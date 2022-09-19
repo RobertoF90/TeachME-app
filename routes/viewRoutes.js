@@ -19,13 +19,11 @@ router.get('/signup', ensureGuest, viewsController.signup);
 router.get('/dashboard', ensureAuth, viewsController.getDashboard);
 
 router.get('/enroll', viewsController.enrollCourses);
+router.get('/courses/create', viewsController.getCreateCourse);
 
-// @desc Render create page
-// @route GET /courses/create
+router.get('/users/:id', viewsController.getStudentHomeworkPage);
 
 router.get('/courses/:id', viewsController.getCoursePage);
-
-router.get('/courses/create', viewsController.getCreateCourse);
 
 router.get('/courses/:id/newHomework', viewsController.getCreateHomework);
 

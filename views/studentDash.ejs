@@ -5,8 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/style.css" />
-
-    <script src="./../helpers/formatText.js"></script>
     <title>Document</title>
   </head>
   <body>
@@ -43,24 +41,23 @@
           <div class="course--title">
             <a href="courses/<%=course._id%>"><%=course.title %></a>
           </div>
-          <% course.students.forEach(student => { %> <%
-          student.homework.forEach(homework => { %>
+          <% if (user.homework){ user.homework.forEach(homework => { %>
           <a href="homework/<%=homework.id %>">
             <div class="main__content--element">
               <div class="element--body">
                 <h4 class="homework--title"><%= homework.title %></h4>
                 <h5><%= homework.type %></h5>
                 <div class="homework--content">
-                  <%-formatText.truncate(homework.body, 120) %>
+                  <% if (homework.body) { %> <% } %>
                 </div>
 
                 <p class="homework--status"><%= homework.status %></p>
               </div>
             </div>
           </a>
-          <% }) %>
+          <%}) } %>
         </div>
-        <% })%> <% })%>
+        <% })%>
       </main>
     </div>
 

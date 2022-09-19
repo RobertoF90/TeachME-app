@@ -35,10 +35,16 @@ router.post('/login', (req, res, next) => {
       req.flash('errors', info);
       return res.redirect('/');
     }
-    req.logIn(user, (err) => {
+    req.logIn(user, async (err) => {
       if (err) {
         return next(err);
       }
+      await User.findOneAndUpdate(
+        { _id: user.id },
+        {
+          lastOnline: Date.now(),
+        }
+      );
       req.flash('success', { msg: 'Success! You are logged in.' });
       res.redirect(req.session.returnTo || '/dashboard');
     });
@@ -105,7 +111,15 @@ router.get(
 // @desc Logout user
 // @route GET /auth/logout
 
-router.get('/logout', (req, res, next) => {
+router.get('/logout', async (req, res, next) => {
+  // UPDATE LAST ONLINE
+  await User.findOneAndUpdate(
+    { _id: res.locals.user.id },
+    {
+      lastOnline: Date.now(),
+    }
+  );
+
   req.logout((error) => {
     if (error) {
       return next(error);

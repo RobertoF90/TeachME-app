@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.19.1/ckeditor.js" integrity="sha512-Ooi9IbjM2SIDjQ02ENbPFuuORT8F8Rc+rowcYfLneDwKRxw1+gVVj5tciVmV/APnA/Ys+qy1MbNKK3k2EaAHcw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="dashboard">
+      <header class="header">
+        <a href="/courses">Enroll</a>
+        <a href="/">Back</a>
+        <h1>TEACHER DASHBOARD</h1>
+        <button>Profile</button>
+      </header>
+      <aside class="aside">
+        <h2>Your Courses</h2>
+        <% courses.forEach(course => { %>
+        <div class="aside--content">
+          <a href="courses/<%=course._id%>" class="enrolled-course"
+            ><%=course.title %></a
+          >
+        </div>
+        <% })%>
+      </aside>
+      <main class="main">
+        <div class="main--top">
+          <h2><%= homework.title %></h2>
+        </div>
+        <div class="main--content nogrid">
+          <form action="/api/v1/homework/<%=homework.id%>/check" method="POST">
+
+            <textarea name="body" id="body">
+              <%= homework.body %>
+            </textarea>
+
+            <input type="submit" value="Submit" />
+          </div>
+        </form>
+        <script>
+      CKEDITOR.replace('body', {
+        plugins: 'wysiwygarea, toolbar, basicstyles, link'
+          })
+        </script>
+      </main>
+    </div>
+
+    <a href="/auth/logout">Logout</a>
+
+    <script src="js/bundle.js"></script>
+  </body>
+</html>

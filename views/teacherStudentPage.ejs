@@ -11,7 +11,7 @@
     <div class="dashboard">
       <header class="header">
         <a href="/dashboard">Back</a>
-        <h1>STUDENT DASHBOARD</h1>
+        <h1>TEACHER DASHBOARD</h1>
         <button>Profile</button>
       </header>
       <aside class="aside">
@@ -19,7 +19,7 @@
         <div class="aside--content">
           <% courses.forEach(course => { %>
           <div class="course">
-            <a href="courses/<%=course._id%>"><%=course.title %></a>
+            <a href="/courses/<%=course._id%>"><%=course.title %></a>
           </div>
           <% })%>
         </div>
@@ -27,24 +27,28 @@
       <main class="main">
         <div class="main--top">
           <div class="course--title">
-            <h2><%=course.title %></h2>
+            <h2><%=student.username %></h2>
           </div>
         </div>
         <div class="main--content">
           <% student.homework.forEach(homework => { %>
-          <a href="homework/<%=homework.id %>">
+
+          <a href="/homework/<%=homework.id %>">
             <div class="main__content--element">
               <div class="element--body">
                 <h4 class="homework--title"><%= homework.title %></h4>
                 <h5><%= homework.type %></h5>
-                <p></p>
-                <div class="homework--content"></div>
+                <div class="homework--content">
+                  <% if (homework.body) { %>
+                  <!-- <%-formatText.truncate(homework.body, 120) %>  -->
+                  <% } %>
+                </div>
 
                 <p class="homework--status"><%= homework.status %></p>
               </div>
             </div>
           </a>
-          <% })%>
+          <%}) %>
         </div>
       </main>
       <a href="/auth/logout">Logout</a>
