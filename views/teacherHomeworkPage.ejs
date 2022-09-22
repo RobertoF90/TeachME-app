@@ -4,20 +4,25 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/style.css" />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.19.1/ckeditor.js" integrity="sha512-Ooi9IbjM2SIDjQ02ENbPFuuORT8F8Rc+rowcYfLneDwKRxw1+gVVj5tciVmV/APnA/Ys+qy1MbNKK3k2EaAHcw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <title>Document</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.19.1/ckeditor.js"
+      integrity="sha512-Ooi9IbjM2SIDjQ02ENbPFuuORT8F8Rc+rowcYfLneDwKRxw1+gVVj5tciVmV/APnA/Ys+qy1MbNKK3k2EaAHcw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <title>Teacher Dashboard</title>
   </head>
   <body>
+    <%- include('header'); -%>
     <div class="dashboard">
-      <header class="header">
-        <a href="/courses">Enroll</a>
-        <a href="/">Back</a>
-        <h1>TEACHER DASHBOARD</h1>
-        <button>Profile</button>
-      </header>
       <aside class="aside">
         <h2>Your Courses</h2>
         <% courses.forEach(course => { %>
@@ -34,18 +39,18 @@
         </div>
         <div class="main--content nogrid">
           <form action="/api/v1/homework/<%=homework.id%>/check" method="POST">
-
             <textarea name="body" id="body">
               <%= homework.body %>
             </textarea>
 
             <input type="submit" value="Submit" />
-          </div>
-        </form>
+          </form>
+        </div>
+
         <script>
-      CKEDITOR.replace('body', {
-        plugins: 'wysiwygarea, toolbar, basicstyles, link'
-          })
+          CKEDITOR.replace("body", {
+            plugins: "wysiwygarea, toolbar, basicstyles, link",
+          });
         </script>
       </main>
     </div>

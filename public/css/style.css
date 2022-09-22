@@ -150,6 +150,9 @@ a {
   row-gap: 2rem;
 }
 
+.teacher__new-homework {
+}
+
 .course--title {
   grid-column: span 3;
   text-align: center;
@@ -220,7 +223,7 @@ a {
   height: 100%;
 }
 
-.ck-editor__editable[role='textbox'] {
+.ck-editor__editable[role="textbox"] {
   /* editing area */
   min-height: 200px;
 }
