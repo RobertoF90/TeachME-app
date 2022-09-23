@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const homeworkSchema = new mongoose.Schema({
   type: {
@@ -9,21 +9,25 @@ const homeworkSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  task: {
+    type: String,
+    required: true,
+  },
   body: {
     type: String,
   },
   course: {
     type: mongoose.Schema.ObjectId,
-    ref: 'Course',
+    ref: "Course",
   },
   student: {
     type: mongoose.Schema.ObjectId,
-    ref: 'User',
+    ref: "User",
   },
   status: {
     type: String,
-    default: 'not completed',
+    default: "not completed",
   },
 });
 
-module.exports = mongoose.model('Homework', homeworkSchema);
+module.exports = mongoose.model("Homework", homeworkSchema);

@@ -5,41 +5,79 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
 
     <script
       src="https://kit.fontawesome.com/9bf5837a99.js"
       crossorigin="anonymous"
     ></script>
-    <title>Document</title>
+    <title>Signup</title>
   </head>
   <body>
     <% if (locals.messages.errors) { %> <% messages.errors.forEach( el => { %>
     <div class="alert alert-danger"><%= el.msg %></div>
     <% }) %> <% } %>
 
-    <div class="app">
-      <a href="/">
-        <i class="back-arrow fa-solid fa-arrow-left"></i>
+    <div
+      class="container w-50 position-absolute top-50 start-50 translate-middle d-flex flex-column border border-2 rounded p-4"
+    >
+      <a class="btn btn-light mx-auto ms-1 rounded-circle" href="/">
+        <i class="fa-solid fa-arrow-left"></i>
       </a>
-      <h1>TESTING</h1>
-      <h2>testing SIGNUP</h2>
+      <h1 class="text-center">TESTING</h1>
+      <h2 class="text-center">testing SIGNUP</h2>
       <form class="form" action="/auth/signup" method="POST">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="username"
+            id="username"
+            name="username"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">E-mail</label>
+          <input
+            class="form-control"
+            type="email"
+            name="email"
+            placeholder="email"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            class="form-control"
+            type="password"
+            name="password"
+            placeholder="password"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label"
+            >Confirm Password</label
+          >
+          <input
+            class="form-control"
+            type="password"
+            name="confirmPassword"
+            placeholder="confirm password"
+          />
+        </div>
+        <!-- <input type="text" placeholder="teacher code" /> -->
         <input
-          type="text"
-          placeholder="username"
-          id="username"
-          name="username"
+          class="btn btn-primary d-block mx-auto"
+          type="submit"
+          value="Signup"
         />
-        <input type="email" name="email" placeholder="email" />
-        <input type="password" name="password" placeholder="password" />
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="confirm password"
-        />
-        <input type="text" placeholder="teacher code" />
-        <input class="btn" type="submit" value="Signup" />
       </form>
     </div>
   </body>

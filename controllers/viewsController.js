@@ -49,6 +49,8 @@ exports.getDashboard = async (req, res) => {
 
 exports.getStudentHomeworkPage = async (req, res) => {
   try {
+    const username = res.locals.user.username;
+
     const courses = await Courses.find({
       teacher: res.locals.user.id,
     });
@@ -58,6 +60,7 @@ exports.getStudentHomeworkPage = async (req, res) => {
     });
 
     res.render("teacherStudentPage", {
+      username,
       formatText,
       courses,
       student,
@@ -69,10 +72,13 @@ exports.getStudentHomeworkPage = async (req, res) => {
 
 exports.enrollCourses = async (req, res) => {
   try {
+    const username = res.locals.user.username;
+
     const enrolled = await Courses.find({ _id: res.locals.user.id });
     const courses = await Courses.find().populate({ path: "students" });
 
     res.render("courseEnroll", {
+      username,
       enrolled,
       courses,
     });
@@ -83,12 +89,14 @@ exports.enrollCourses = async (req, res) => {
 
 exports.getCreateHomework = async (req, res) => {
   try {
+    const username = res.locals.user.username;
+
     const courses = await Courses.find();
     const course = await Courses.findById({ _id: req.params.id }).populate({
       path: "students",
     });
     res.render("teacherNewHomework", {
-      // students,
+      username,
       courses,
       course,
     });
@@ -98,19 +106,22 @@ exports.getCreateHomework = async (req, res) => {
 };
 
 exports.getCreateCourse = async (req, res) => {
+  const username = res.locals.user.username;
+
   const students = await User.find();
   const courses = await Courses.find().populate({
     path: "students",
   });
 
   res.render("teacherNewCourse", {
+    username,
     students,
     courses,
   });
 };
 
 exports.getCoursePage = async (req, res) => {
-  const username = res.locals.user.name || res.locals.user.username;
+  const username = res.locals.user.username;
   if (res.locals.user.role === "teacher") {
     const courses = await Courses.find({
       teacher: res.locals.user.id,
@@ -154,6 +165,7 @@ exports.getCoursePage = async (req, res) => {
     });
 
     res.render("studentCoursePage", {
+      username,
       formatText,
       courses,
       course,
