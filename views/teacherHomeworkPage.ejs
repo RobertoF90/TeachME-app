@@ -22,30 +22,38 @@
   </head>
   <body>
     <%- include('header'); -%>
-    <div class="dashboard">
-      <aside class="aside">
-        <h2>Your Courses</h2>
-        <% courses.forEach(course => { %>
-        <div class="aside--content">
-          <a href="courses/<%=course._id%>" class="enrolled-course"
-            ><%=course.title %></a
-          >
-        </div>
-        <% })%>
+    <div
+      style="min-height: 90vh"
+      class="container-fluid h-100 row justify-content-center"
+    >
+      <aside class="col-3 bg-light p-0 pt-2">
+        <h3 class="px-2">Your Courses</h3>
+        <ul class="list-group list-group-flush">
+          <% courses.forEach(course => { %>
+          <li class="list-group-item">
+            <a class="text-decoration-none" href="/courses/<%=course._id%>"
+              ><%=course.title %></a
+            >
+          </li>
+          <% })%>
+        </ul>
       </aside>
-      <main class="main">
-        <div class="main--top">
-          <h2><%= homework.title %></h2>
+      <main class="col-9">
+        <div class="offset-md-4">
+          <h2 class="my-2 mb-4"><%= homework.title %></h2>
         </div>
-        <div class="main--content nogrid">
-          <form action="/api/v1/homework/<%=homework.id%>/check" method="POST">
-            <textarea name="body" id="body">
+        <form action="/api/v1/homework/<%=homework.id%>/check" method="POST">
+          <textarea name="body" id="body">
               <%= homework.body %>
-            </textarea>
+            </textarea
+          >
 
-            <input type="submit" value="Submit" />
-          </form>
-        </div>
+          <input
+            class="btn btn-primary mt-4 offset-md-5"
+            type="submit"
+            value="Submit"
+          />
+        </form>
 
         <script>
           CKEDITOR.replace("body", {
@@ -54,8 +62,6 @@
         </script>
       </main>
     </div>
-
-    <a href="/auth/logout">Logout</a>
 
     <script src="js/bundle.js"></script>
   </body>

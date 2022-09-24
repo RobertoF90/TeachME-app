@@ -43,15 +43,21 @@
               class="card-body text-decoration-none"
               href="/homework/<%=homework.id %>"
             >
-              <h4 class="card-title"><%= homework.title %></h4>
+              <h5 class="card-title"><%= homework.title %></h5>
+              <h5 class="card-text"><%= homework.course.title %></h5>
               <h6 class="card-text"><%= homework.type %></h6>
               <div class="card-text">
                 <% if (homework.body) { %>
                 <!-- <%-formatText.truncate(homework.body, 120) %>  -->
                 <% } %>
               </div>
-
-              <p class="card-text"><%= homework.status %></p>
+              <% if (homework.status === 'Checked') { %>
+              <p class="card-text text-success"><%= homework.status %></p>
+              <% } else if (homework.status === 'Delivered') { %>
+              <p class="card-text text-warning"><%= homework.status %></p>
+              <% } else { %>
+              <p class="card-text text-danger"><%= homework.status %></p>
+              <% } %>
             </a>
           </div>
           <%}) %>

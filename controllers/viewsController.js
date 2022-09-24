@@ -57,6 +57,7 @@ exports.getStudentHomeworkPage = async (req, res) => {
 
     const student = await User.findById(req.params.id).populate({
       path: "homework",
+      populate: { path: "course" },
     });
 
     res.render("teacherStudentPage", {
@@ -72,9 +73,10 @@ exports.getStudentHomeworkPage = async (req, res) => {
 
 exports.enrollCourses = async (req, res) => {
   try {
+    console.log("enroll");
     const username = res.locals.user.username;
 
-    const enrolled = await Courses.find({ _id: res.locals.user.id });
+    const enrolled = await Courses.find({ students: res.locals.user.id });
     const courses = await Courses.find().populate({ path: "students" });
 
     res.render("courseEnroll", {
@@ -121,6 +123,8 @@ exports.getCreateCourse = async (req, res) => {
 };
 
 exports.getCoursePage = async (req, res) => {
+  console.log("enroll");
+
   const username = res.locals.user.username;
   if (res.locals.user.role === "teacher") {
     const courses = await Courses.find({
