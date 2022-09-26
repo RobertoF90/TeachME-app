@@ -18,12 +18,14 @@ router.get('/signup', ensureGuest, viewsController.signup);
 
 router.get('/dashboard', ensureAuth, viewsController.getDashboard);
 
-router.get('/enroll', viewsController.enrollCourses);
-router.get('/courses/create', viewsController.getCreateCourse);
+router.get('/profile', ensureAuth, viewsController.getUserProfile);
 
-router.get('/users/:id', viewsController.getStudentHomeworkPage);
+router.get('/courses/create', ensureAuth, viewsController.getCreateCourse);
+router.get('/courses/enroll', ensureAuth, viewsController.enrollCourses);
 
-router.get('/courses/:id', viewsController.getCoursePage);
+router.get('/users/:id', ensureAuth, viewsController.getStudentHomeworkPage);
+
+router.get('/courses/:id', ensureAuth, viewsController.getCoursePage);
 
 router.get('/courses/:id/newHomework', viewsController.getCreateHomework);
 

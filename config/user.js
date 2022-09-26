@@ -7,7 +7,7 @@ const addGoogleUser =
       id,
       email,
       displayName,
-      firstName,
+      username: firstName,
       lastName,
       profilePhoto,
       source: 'google',

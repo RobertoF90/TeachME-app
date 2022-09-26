@@ -1,4 +1,15 @@
 // console.log('choose a course');
+const bootstrap = require("bootstrap");
+
+const popoverTriggerList = document.querySelectorAll(
+  '[data-bs-toggle="popover"]'
+);
+const popoverList = [...popoverTriggerList].map(
+  (popoverTriggerEl) =>
+    new bootstrap.Popover(popoverTriggerEl, {
+      trigger: "focus",
+    })
+);
 
 // import { truncate, stripTags } from '../../helpers/formatText';
 

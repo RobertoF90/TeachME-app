@@ -1,6 +1,6 @@
-const Homework = require('../models/HomeworkModel');
-const User = require('../models/User');
-const Courses = require('./../models/CourseModel');
+const Homework = require("../models/HomeworkModel");
+const User = require("../models/User");
+const Courses = require("./../models/CourseModel");
 
 exports.getAllHomework = async (req, res, next) => {
   try {
@@ -33,17 +33,39 @@ exports.getOneHomework = async (req, res) => {
 
 exports.createHomework = async (req, res, next) => {
   try {
+    console.log(req.body);
     // ASSIGN HOMEWORK TO EACH STUDENT IN A COURSE
-    if (req.body.student === 'Everyone') {
-      const course = await Courses.findById(req.body.course).populate({
-        path: 'students',
-      });
+
+    const assignTo = req.body.assignTo;
+    const course = await Courses.findById(req.body.course).populate({
+      path: "students",
+    });
+
+    if (assignTo === "Everyone") {
       const students = course.students;
       students.forEach(async (student) => {
         try {
           await Homework.create({
-            title: req.body.title,
             type: req.body.type,
+            title: req.body.title,
+            task: req.body.task,
+            course: req.body.course,
+            student: student._id,
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      });
+    } else if (Array.isArray(assignTo)) {
+      const students = course.students.filter((student) =>
+        assignTo.includes(student.id)
+      );
+      students.forEach(async (student) => {
+        try {
+          await Homework.create({
+            type: req.body.type,
+            title: req.body.title,
+            task: req.body.task,
             course: req.body.course,
             student: student._id,
           });
@@ -54,13 +76,14 @@ exports.createHomework = async (req, res, next) => {
     } else {
       // ASSIGN HOMEWORK TO ONLY ONE STUDENT
       await Homework.create({
-        title: req.body.title,
         type: req.body.type,
+        title: req.body.title,
+        task: req.body.task,
         course: req.body.course,
-        student: req.body.student,
+        student: req.body.assignTo,
       });
     }
-    res.status(200).redirect('/dashboard');
+    res.status(200).redirect("/dashboard");
   } catch (err) {
     console.error(err);
   }
@@ -68,12 +91,12 @@ exports.createHomework = async (req, res, next) => {
 
 exports.deliverHomework = async (req, res) => {
   try {
-    console.log('delivering');
+    console.log("delivering");
     await Homework.findByIdAndUpdate(
       req.params.id,
       {
         body: req.body.body,
-        status: 'Delivered',
+        status: "Delivered",
       },
       {
         new: true,
@@ -81,7 +104,7 @@ exports.deliverHomework = async (req, res) => {
       }
     );
 
-    res.redirect('/dashboard');
+    res.redirect("/dashboard");
   } catch (err) {
     console.log(err);
   }
@@ -93,7 +116,7 @@ exports.checkHomework = async (req, res) => {
       req.params.id,
       {
         body: req.body.body,
-        status: 'Checked',
+        status: "Checked",
       },
       {
         new: true,
@@ -101,7 +124,7 @@ exports.checkHomework = async (req, res) => {
       }
     );
 
-    res.redirect('/dashboard');
+    res.redirect("/dashboard");
   } catch (err) {
     console.log(err);
   }
