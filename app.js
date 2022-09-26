@@ -43,8 +43,6 @@ app.use(
   })
 );
 
-// app.use(passport.authenticate('session'));
-
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());

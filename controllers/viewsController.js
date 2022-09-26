@@ -1,31 +1,51 @@
-const User = require("../models/User");
-const Courses = require("./../models/CourseModel");
-const Homework = require("../models/HomeworkModel");
-const formatText = require("../helpers/formatText");
-const moment = require("moment");
+const User = require('../models/User');
+const Courses = require('./../models/CourseModel');
+const Homework = require('../models/HomeworkModel');
+const formatText = require('../helpers/formatText');
+const moment = require('moment');
 
 exports.login = (req, res) => {
-  res.render("login");
+  res.render('login');
 };
 
 exports.signup = (req, res) => {
-  res.render("signup");
+  res.render('signup');
+};
+
+exports.getUserProfile = async (req, res) => {
+  const username = res.locals.user.username;
+
+  const courses = await Courses.find({
+    students: res.locals.user.id,
+  });
+
+  const user = await User.findById(res.locals.user.id).populate({
+    path: 'homework',
+  });
+
+  res.render('profilePage', {
+    formatText,
+    username,
+    userImg: res.locals.user.img,
+    courses,
+    user,
+  });
 };
 
 exports.getDashboard = async (req, res) => {
   // Check if user is student or teacher
   const username = res.locals.user.username;
 
-  if (res.locals.user.role === "student") {
+  if (res.locals.user.role === 'student') {
     const courses = await Courses.find({
       students: res.locals.user.id,
     });
 
     const user = await User.findById(res.locals.user.id).populate({
-      path: "homework",
+      path: 'homework',
     });
 
-    res.render("studentDash", {
+    res.render('studentDash', {
       formatText,
       username,
       userImg: res.locals.user.img,
@@ -36,11 +56,11 @@ exports.getDashboard = async (req, res) => {
     const courses = await Courses.find({
       teacher: res.locals.user.id,
     }).populate({
-      path: "students",
-      populate: { path: "homework" },
+      path: 'students',
+      populate: { path: 'homework' },
     });
 
-    res.render("teacherDash", {
+    res.render('teacherDash', {
       username,
       courses,
     });
@@ -56,11 +76,11 @@ exports.getStudentHomeworkPage = async (req, res) => {
     });
 
     const student = await User.findById(req.params.id).populate({
-      path: "homework",
-      populate: { path: "course" },
+      path: 'homework',
+      populate: { path: 'course' },
     });
 
-    res.render("teacherStudentPage", {
+    res.render('teacherStudentPage', {
       username,
       formatText,
       courses,
@@ -73,13 +93,13 @@ exports.getStudentHomeworkPage = async (req, res) => {
 
 exports.enrollCourses = async (req, res) => {
   try {
-    console.log("enroll");
+    console.log('enroll');
     const username = res.locals.user.username;
 
     const enrolled = await Courses.find({ students: res.locals.user.id });
-    const courses = await Courses.find().populate({ path: "students" });
+    const courses = await Courses.find().populate({ path: 'students' });
 
-    res.render("courseEnroll", {
+    res.render('courseEnroll', {
       username,
       enrolled,
       courses,
@@ -95,9 +115,9 @@ exports.getCreateHomework = async (req, res) => {
 
     const courses = await Courses.find();
     const course = await Courses.findById({ _id: req.params.id }).populate({
-      path: "students",
+      path: 'students',
     });
-    res.render("teacherNewHomework", {
+    res.render('teacherNewHomework', {
       username,
       courses,
       course,
@@ -112,10 +132,10 @@ exports.getCreateCourse = async (req, res) => {
 
   const students = await User.find();
   const courses = await Courses.find().populate({
-    path: "students",
+    path: 'students',
   });
 
-  res.render("teacherNewCourse", {
+  res.render('teacherNewCourse', {
     username,
     students,
     courses,
@@ -123,58 +143,54 @@ exports.getCreateCourse = async (req, res) => {
 };
 
 exports.getCoursePage = async (req, res) => {
-  console.log("enroll");
+  try {
+    const username = res.locals.user.username;
+    if (res.locals.user.role === 'teacher') {
+      const courses = await Courses.find({
+        teacher: res.locals.user.id,
+      }).populate({
+        path: 'students',
+        populate: { path: 'homework' },
+      });
 
-  const username = res.locals.user.username;
-  if (res.locals.user.role === "teacher") {
-    const courses = await Courses.find({
-      teacher: res.locals.user.id,
-    }).populate({
-      path: "students",
-      populate: { path: "homework" },
-    });
+      const course = await Courses.findOne({
+        _id: req.params.id,
+        teacher: res.locals.user.id,
+      }).populate({
+        path: 'students',
+        populate: { path: 'homework' },
+      });
 
-    const course = await Courses.findOne({
-      _id: req.params.id,
-      teacher: res.locals.user.id,
-    }).populate({
-      path: "students",
-      populate: { path: "homework" },
-    });
+      res.render('teacherCoursePage', {
+        username,
+        moment,
+        formatText,
+        courses,
+        course,
+      });
+    } else {
+      const courses = await Courses.find({
+        students: res.locals.user.id,
+      });
 
-    res.render("teacherCoursePage", {
-      username,
-      moment,
-      formatText,
-      courses,
-      course,
-    });
-  } else {
-    const courses = await Courses.find({
-      students: res.locals.user.id,
-    }).populate({
-      path: "students",
-      populate: { path: "homework" },
-    });
+      const course = await Courses.findById({ _id: req.params.id }).populate({
+        path: 'students',
+      });
 
-    const course = await Courses.findOne({
-      students: res.locals.user.id,
-    }).populate({
-      path: "students",
-      populate: { path: "homework" },
-    });
+      const student = await User.findById(res.locals.user.id).populate({
+        path: 'homework',
+      });
 
-    const student = await User.findById(res.locals.user.id).populate({
-      path: "homework",
-    });
-
-    res.render("studentCoursePage", {
-      username,
-      formatText,
-      courses,
-      course,
-      student,
-    });
+      res.render('studentCoursePage', {
+        username,
+        formatText,
+        courses,
+        course,
+        student,
+      });
+    }
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -182,12 +198,12 @@ exports.getHomeworkPage = async (req, res) => {
   const username = res.locals.user.username;
   const homework = await Homework.findById(req.params.id);
   let courses;
-  if (res.locals.user.role === "teacher") {
+  if (res.locals.user.role === 'teacher') {
     courses = await Courses.find({
       teacher: res.locals.user.id,
     });
 
-    res.render("teacherHomeworkPage", {
+    res.render('teacherHomeworkPage', {
       username,
       courses,
       homework,
@@ -197,7 +213,7 @@ exports.getHomeworkPage = async (req, res) => {
       students: res.locals.user.id,
     });
 
-    res.render("studentHomeworkPage", {
+    res.render('studentHomeworkPage', {
       username,
       courses,
       homework,

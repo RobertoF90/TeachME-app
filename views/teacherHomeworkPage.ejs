@@ -41,6 +41,7 @@
       <main class="col-9">
         <div class="offset-md-4">
           <h2 class="my-2 mb-4"><%= homework.title %></h2>
+          <h3 class="my-2 mb-4"><%= homework.task %></h3>
         </div>
         <form action="/api/v1/homework/<%=homework.id%>/check" method="POST">
           <textarea name="body" id="body">
@@ -56,8 +57,8 @@
         </form>
 
         <script>
-          CKEDITOR.replace("body", {
-            plugins: "wysiwygarea, toolbar, basicstyles, link",
+          CKEDITOR.replace('body', {
+            plugins: 'wysiwygarea, toolbar, basicstyles, link',
           });
         </script>
       </main>

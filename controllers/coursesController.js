@@ -17,14 +17,7 @@ exports.getAllCourses = async (req, res, next) => {
 };
 
 exports.getOneCourse = async (req, res) => {
-  if (res.locals.user.role === 'student') {
-    res.status(200).json({
-      status: 'not implemented',
-    });
-  }
-
-  if (res.locals.user.role === 'teacher') {
-    // const students = await User.find();
+  try {
     const courses = await Course.find();
     const course = await Course.findById({ _id: req.params.id }).populate({
       path: 'students',
@@ -36,6 +29,8 @@ exports.getOneCourse = async (req, res) => {
         data: students,
       },
     });
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -47,14 +42,25 @@ exports.createCourse = async (req, res) => {
     });
 
     res.redirect('/dashboard');
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
   }
 };
 
 exports.enrollCourse = async (req, res) => {
-  console.log('request received');
   try {
+    const course = await Course.findById(req.params.id).populate({
+      path: 'students',
+      select: 'id',
+    });
+
+    if (course.students.some((student) => res.locals.user.id === student.id)) {
+      console.log('already enrolled');
+      req.flash('errors', { msg: 'You are already enrolled in this course' });
+
+      return res.status(200).redirect('/dashboard');
+    }
+
     await Course.findOneAndUpdate(
       { _id: req.params.id },
       { $push: { students: res.locals.user.id } },
@@ -63,18 +69,9 @@ exports.enrollCourse = async (req, res) => {
         runValidators: true,
       }
     );
-    // await User.findOneAndUpdate(
-    //   { _id: res.locals.user.id },
-    //   { $push: { courses: req.params.id } },
-    //   {
-    //     new: true,
-    //     runValidators: true,
-    //   }
-    // );
-
     res.status(200).redirect('/dashboard');
-  } catch (error) {
-    console.log('error enrollment');
+  } catch (err) {
+    console.log(err);
   }
 };
 

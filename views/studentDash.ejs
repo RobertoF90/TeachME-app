@@ -32,7 +32,7 @@
           <% })%>
         </ul>
       </aside>
-      <main style="max-height: 90vh" class="col-9 overflow-scroll">
+      <main style="min-height: 90vh" class="col-9 overflow-scroll">
         <div class="offset-md-4">
           <h3 class="my-2">Latest homework</h3>
         </div>
@@ -70,7 +70,10 @@
           </div>
           <%}) } %>
         </div>
-        <% })%>
+        <% })%> <% if (locals.messages.errors) { %> <% messages.errors.forEach(
+        el => { %>
+        <div class="alert alert-danger"><%= el.msg %></div>
+        <% }) %> <% } %>
       </main>
     </div>
 
