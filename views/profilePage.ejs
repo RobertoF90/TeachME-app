@@ -35,12 +35,50 @@
       <main style="min-height: 90vh" class="col-9 overflow-scroll">
         <h3 class="text-center my-2">Your Profile</h3>
 
+        <% if (user.role === 'teacher') { %>
+        <h5>Promote to teacher</h5>
+        <form action="/api/v1/users/promoteToTeacher" method="POST">
+          <select
+            name="student"
+            class="form-select my-4"
+            aria-label="Default select example"
+          >
+            <% students.forEach(student => { %>
 
-        <% if (user.role === 'student') { %>
+            <option id="<%=student.id%>" value="<%=student.id%>">
+              <%=student.username%>
+            </option>
 
-          <ul class="list-group list-group-flush mb-3">
-            <li class="list-group-item">
-              Homework assigned: <%= user.homework.length %>
+            <% }) %>
+          </select>
+
+          <input type="submit" class="btn btn-primary" value="Promote" />
+        </form>
+
+        <h5 class="mt-4">Promote to student</h5>
+        <form action="/api/v1/users/promoteToStudent" method="POST">
+          <select
+            name="teacher"
+            class="form-select my-4"
+            aria-label="Default select example"
+          >
+            <% teachers.forEach(teacher => { %>
+
+            <option id="<%=teacher.id%>" value="<%=teacher.id%>">
+              <%=teacher.username%>
+            </option>
+
+            <% }) %>
+          </select>
+
+          <input type="submit" class="btn btn-primary" value="Promote" />
+        </form>
+
+        <% } %> <% if (user.role === 'student') { %>
+
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item">
+            Homework assigned: <%= user.homework.length %>
           </li>
           <li class="list-group-item">
             Homework completed: <% let completed = 0; user.homework.forEach(
@@ -48,7 +86,12 @@
             completed %>
           </li>
         </ul>
-     <% } %>
+
+        <a class="btn btn-primary" href="/api/v1/users/becomeTeacher"
+          >Become a teacher</a
+        >
+
+        <% } %>
 
         <!-- <h4 class="text-center my-2">Update Password</h4> -->
 
@@ -73,12 +116,12 @@
           </div>
           <div class="mb-3 mx-auto d-flex justify-content-evenly">
             <input class="btn btn-primary" type="submit" value="Submit" />
-          </div> -->
-        </form>
+          </div> 
+        </form> -->
 
-        <% if (locals.messages.errors) { %> <% messages.errors.forEach( el => {
-        %>
-        <div class="alert alert-danger"><%= el.msg %></div>
+        <% if (locals.messages.success) { %> <% messages.success.forEach( el =>
+        { %>
+        <div class="mt-4 alert alert-success"><%= el.msg %></div>
         <% }) %> <% } %>
       </main>
     </div>

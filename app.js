@@ -60,7 +60,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // ROUTES
 app.use('/', viewRouter);
 app.use('/auth', authRouter);
-app.use('/api/v1/user', userRouter);
+app.use('/api/v1/users', userRouter);
 app.use('/api/v1/courses', courseRouter);
 app.use('/api/v1/homework', homeworkRouter);
 

@@ -14,26 +14,49 @@ exports.signup = (req, res) => {
 
 exports.getUserProfile = async (req, res) => {
   const username = res.locals.user.username;
+  if (res.locals.user.role === 'teacher') {
+    const courses = await Courses.find({
+      teacher: res.locals.user.id,
+    });
 
-  const courses = await Courses.find({
-    students: res.locals.user.id,
-  });
+    const users = await User.find();
+    let students = users.filter((user) => user.role !== 'teacher');
+    let teachers = users.filter((user) => user.role === 'teacher');
+    teachers = teachers.filter((user) => user.id !== res.locals.user.id);
 
-  const user = await User.findById(res.locals.user.id).populate({
-    path: 'homework',
-  });
+    const user = await User.findById(res.locals.user.id);
 
-  res.render('profilePage', {
-    formatText,
-    username,
-    userImg: res.locals.user.img,
-    courses,
-    user,
-  });
+    res.render('profilePage', {
+      formatText,
+      username,
+      userImg: res.locals.user.img,
+      courses,
+      students,
+      teachers,
+      user,
+    });
+  } else {
+    const courses = await Courses.find({
+      students: res.locals.user.id,
+    });
+    const user = await User.findById(res.locals.user.id).populate({
+      path: 'homework',
+    });
+
+    res.render('profilePage', {
+      formatText,
+      username,
+      userImg: res.locals.user.img,
+      courses,
+      user,
+    });
+  }
 };
 
 exports.getDashboard = async (req, res) => {
   // Check if user is student or teacher
+  console.log(req.user);
+
   const username = res.locals.user.username;
 
   if (res.locals.user.role === 'student') {
