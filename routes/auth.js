@@ -1,15 +1,11 @@
 const express = require('express');
 const passport = require('passport');
-const crypto = require('crypto');
 const validator = require('validator');
 const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
 const userService = require('../config/user')(User);
-
-// @desc Local Auth login
-// @route GET /auth/login
 
 router.post('/login', (req, res, next) => {
   const validationErrors = [];
@@ -51,8 +47,6 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-// @desc Local Auth signup
-// @route POST /auth/signup
 
 router.post('/signup', async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -85,8 +79,6 @@ router.post('/signup', async (req, res, next) => {
   return res.redirect('/dashboard');
 });
 
-// @desc Auth with Google
-// @route GET /auth/google
 
 router.get(
   '/google',
@@ -94,9 +86,6 @@ router.get(
     scope: ['profile', 'email'],
   })
 );
-
-// @desc Google auth callback
-// @route GET /auth/google/callback
 
 router.get(
   '/google/callback',
@@ -107,9 +96,6 @@ router.get(
     res.redirect('/dashboard');
   }
 );
-
-// @desc Logout user
-// @route GET /auth/logout
 
 router.get('/logout', async (req, res, next) => {
   // UPDATE LAST ONLINE

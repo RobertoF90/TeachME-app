@@ -88,44 +88,15 @@
         </ul>
 
         <a class="btn btn-primary" href="/api/v1/users/becomeTeacher"
-          >Become a teacher</a
+          >Become a teacher (Test Version)</a
         >
-
-        <% } %>
-
-        <!-- <h4 class="text-center my-2">Update Password</h4> -->
-
-        <!-- <form action="auth/update-password" method="POST" class="form">
-          <div class="mb-3">
-            <label for="oldPassword" class="form-label">Old Password</label>
-            <input type="password" class="form-control" name="oldPassword" />
-          </div>
-          <div class="mb-3">
-            <label for="newPassword" class="form-label">New Password</label>
-            <input type="password" class="form-control" name="newPassword" />
-          </div>
-          <div class="mb-3">
-            <label for="passwordConfirm" class="form-label"
-              >Confirm Password</label
-            >
-            <input
-              type="password"
-              class="form-control"
-              name="passwordConfirm"
-            />
-          </div>
-          <div class="mb-3 mx-auto d-flex justify-content-evenly">
-            <input class="btn btn-primary" type="submit" value="Submit" />
-          </div> 
-        </form> -->
-
-        <% if (locals.messages.success) { %> <% messages.success.forEach( el =>
-        { %>
+        <% } %> <% if (locals.messages.success) { %> <%
+        messages.success.forEach( el => { %>
         <div class="mt-4 alert alert-success"><%= el.msg %></div>
         <% }) %> <% } %>
       </main>
     </div>
 
-    <script src="js/bundle.js"></script>
+    <script src="/js/bundle.js"></script>
   </body>
 </html>

@@ -33,7 +33,7 @@
       </aside>
       <main style="min-height: 90vh" class="col-9 overflow-scroll">
         <h2 class="text-center my-2"><%=course.title %></h2>
-        <div class="container row row-cols-4">
+        <div class="container row row-cols-lg-4 row-cols-sm-1 row-cols-md-3">
           <% if (student.homework){ let homework =
           student.homework.filter((homework) => homework.course.toString() ===
           course.id) %> <% homework.forEach(homework => { %>
@@ -59,6 +59,6 @@
         </div>
       </main>
     </div>
-    <script src="js/bundle.js"></script>
+    <script src="/js/bundle.js"></script>
   </body>
 </html>

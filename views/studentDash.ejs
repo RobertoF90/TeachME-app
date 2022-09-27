@@ -33,19 +33,17 @@
         </ul>
       </aside>
       <main style="min-height: 90vh" class="col-9 overflow-scroll">
-        <div class="offset-md-4">
-          <h3 class="my-2">Latest homework</h3>
-        </div>
+        <h3 class="my-2 text-center">Latest homework</h3>
         <% courses.forEach(course => { %>
-        <div class="offset-md-5">
-          <a class="h3 text-decoration-none" href="courses/<%=course._id%>"
-            ><%=course.title %></a
-          >
-        </div>
-        <div class="container row row-cols-4 align-items-center">
+        <a
+          class="h3 text-decoration-none text-center d-block"
+          href="courses/<%=course._id%>"
+          ><%=course.title %></a
+        >
+        <div
+          class="container row row-cols-lg-4 row-cols-sm-1 row-cols-md-3 align-items-center"
+        >
           <% if (user.homework){ %> <% let homework =
-          <!-- @TODO FILTER HOMEWORK BASED ON COURSES   -->
-
           user.homework.filter((homework) => homework.course.toString() ===
           course.id).slice(0,3) %> <% homework.forEach(homework => { %>
           <div class="my-3 mx-3 card text-center">
@@ -77,6 +75,6 @@
       </main>
     </div>
 
-    <script src="js/bundle.js"></script>
+    <script src="/js/bundle.js"></script>
   </body>
 </html>

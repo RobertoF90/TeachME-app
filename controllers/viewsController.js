@@ -54,9 +54,6 @@ exports.getUserProfile = async (req, res) => {
 };
 
 exports.getDashboard = async (req, res) => {
-  // Check if user is student or teacher
-  console.log(req.user);
-
   const username = res.locals.user.username;
 
   if (res.locals.user.role === 'student') {
@@ -116,9 +113,7 @@ exports.getStudentHomeworkPage = async (req, res) => {
 
 exports.enrollCourses = async (req, res) => {
   try {
-    console.log('enroll');
     const username = res.locals.user.username;
-
     const enrolled = await Courses.find({ students: res.locals.user.id });
     const courses = await Courses.find().populate({ path: 'students' });
 
@@ -135,7 +130,6 @@ exports.enrollCourses = async (req, res) => {
 exports.getCreateHomework = async (req, res) => {
   try {
     const username = res.locals.user.username;
-
     const courses = await Courses.find();
     const course = await Courses.findById({ _id: req.params.id }).populate({
       path: 'students',
@@ -152,7 +146,6 @@ exports.getCreateHomework = async (req, res) => {
 
 exports.getCreateCourse = async (req, res) => {
   const username = res.locals.user.username;
-
   const students = await User.find();
   const courses = await Courses.find().populate({
     path: 'students',
