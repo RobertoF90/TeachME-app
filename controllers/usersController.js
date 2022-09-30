@@ -12,25 +12,7 @@ exports.getStudent = async (req, res) => {
   });
 };
 
-exports.becomeTeacher = async (req, res) => {
-  try {
-    const user = await User.findOneAndUpdate(
-      {
-        _id: res.locals.user.id,
-      },
-      {
-        role: 'teacher',
-      }
-    );
-    req.user.role = 'teacher';
-    req.flash('success', { msg: `You are now a teacher!` });
-    res.status(200).redirect('/profile');
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-exports.promoteToTeacher = async (req, res) => {
+exports.changeToTeacher = async (req, res) => {
   try {
     const user = await User.findOneAndUpdate(
       { _id: req.body.student },
@@ -45,7 +27,7 @@ exports.promoteToTeacher = async (req, res) => {
   }
 };
 
-exports.promoteToStudent = async (req, res) => {
+exports.changeToStudent = async (req, res) => {
   try {
     const user = await User.findOneAndUpdate(
       { _id: req.body.teacher },

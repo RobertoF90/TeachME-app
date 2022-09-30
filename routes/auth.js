@@ -3,7 +3,9 @@ const passport = require('passport');
 const validator = require('validator');
 const router = express.Router();
 const User = require('../models/User');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
+
+
 
 const userService = require('../config/user')(User);
 
@@ -49,7 +51,7 @@ router.post('/login', (req, res, next) => {
 
 
 router.post('/signup', async (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, role } = req.body;
 
   if (password.length < 8) {
     req.flash(
@@ -66,6 +68,7 @@ router.post('/signup', async (req, res, next) => {
       username,
       email,
       password: hashedPassword,
+      role,
     });
   } catch (e) {
     req.flash(
@@ -75,8 +78,26 @@ router.post('/signup', async (req, res, next) => {
     return res.redirect('/signup');
   }
 
-  console.log('redirect to dash');
-  return res.redirect('/dashboard');
+
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+  
+    req.logIn(user, async (err) => {
+      if (err) {
+        return next(err);
+      }
+      await User.findOneAndUpdate(
+        { _id: user.id },
+        {
+          lastOnline: Date.now(),
+        }
+      );
+      req.flash('success', { msg: 'Success! You are logged in.' });
+      res.redirect(req.session.returnTo || '/dashboard');
+    });
+  })(req, res, next);
 });
 
 

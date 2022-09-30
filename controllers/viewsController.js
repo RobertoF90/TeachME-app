@@ -26,6 +26,9 @@ exports.getUserProfile = async (req, res) => {
 
     const user = await User.findById(res.locals.user.id);
 
+    const homework = await Homework.find({
+      course: courses,
+    })
     res.render('profilePage', {
       formatText,
       username,
@@ -33,6 +36,7 @@ exports.getUserProfile = async (req, res) => {
       courses,
       students,
       teachers,
+      homework,
       user,
     });
   } else {

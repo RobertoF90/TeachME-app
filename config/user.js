@@ -17,11 +17,14 @@ const addGoogleUser =
 
 const addLocalUser =
   (User) =>
-  ({ username, email, password }) => {
+  ({ username, email, password, role }) => {
+    const userRole = role === 'test' ? 'teacher' : 'student'
+
     const user = new User({
       username,
       email,
       password,
+      role: userRole,
       source: 'local',
     });
     return user.save();

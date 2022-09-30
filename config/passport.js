@@ -1,7 +1,7 @@
 const GoogleStrategy = require('passport-google-oauth20');
 const LocalStrategy = require('passport-local');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const passport = require('passport');
 const userService = require('./user')(User);
@@ -71,7 +71,6 @@ module.exports = function () {
             message: `You have previously signed up with a different signin method`,
           });
         }
-        console.log('user', user);
         if (!bcrypt.compareSync(password, user.password)) {
           return done(null, false, { message: `Incorrect password provided` });
         }

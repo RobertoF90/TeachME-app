@@ -13,6 +13,8 @@ TeachME is a web app that helps teacher and students tracking and managing their
 - Create a `.env` file in config folder and add the string to your mongoDB database as follows
 
   - DATABASE= `your database URI`
+  - GOOGLE_CLIENT_ID= `your Google Client ID`
+  - GOOGLE_CLIENT_SECRET= `your Google Client Secret`
 
 ---
 
@@ -22,6 +24,7 @@ TeachME is a web app that helps teacher and students tracking and managing their
 
 # Instructions
 
-- Since only teachers have the ability to promote students to the role of teachers, the option of becoming a teacher is given in the student profile.
+- Signin up with google will not give you the option to use the app as a teacher.
 
-- Teachers have the ability to promote students to the role of teachers and vice-versa.
+- In order to user the app as a teacher you need to signup and use the teacher code "test". 
+

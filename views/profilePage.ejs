@@ -36,8 +36,8 @@
         <h3 class="text-center my-2">Your Profile</h3>
 
         <% if (user.role === 'teacher') { %>
-        <h5>Promote to teacher</h5>
-        <form action="/api/v1/users/promoteToTeacher" method="POST">
+        <h5>Change role to teacher</h5>
+        <form action="/api/v1/users/changeToTeacher" method="POST">
           <select
             name="student"
             class="form-select my-4"
@@ -55,8 +55,8 @@
           <input type="submit" class="btn btn-primary" value="Promote" />
         </form>
 
-        <h5 class="mt-4">Promote to student</h5>
-        <form action="/api/v1/users/promoteToStudent" method="POST">
+        <h5 class="mt-4">Change role to student</h5>
+        <form action="/api/v1/users/changeToStudent" method="POST">
           <select
             name="teacher"
             class="form-select my-4"
@@ -74,6 +74,50 @@
           <input type="submit" class="btn btn-primary" value="Promote" />
         </form>
 
+        <h5 class="mt-4">Delete a course</h5>
+
+        <form action="/api/v1/courses/deleteCourse" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
+          <select
+            name="course"
+            class="form-select my-4"
+            aria-label="Default select example"
+          >
+            <% courses.forEach(course => { %>
+
+            <option id="<%=course.id%>" value="<%=course.id%>">
+              <%=course.title%>
+            </option>
+
+            <% }) %>
+          </select>
+
+          <input type="submit" class="btn btn-danger" value="Delete" />
+        </form>
+
+
+        <h5 class="mt-4">Delete homework</h5>
+        <form action="/api/v1/homework/deleteHomework" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
+          <select
+            name="homework"
+            class="form-select my-4"
+            aria-label="Default select example"
+          >
+            <% homework.forEach(homework => { %>
+
+            <option id="<%=homework.id%>" value="<%=homework.id%>">
+              <%=homework.title%>
+            </option>
+
+            <% }) %>
+          </select>
+
+          <input type="submit" class="btn btn-danger" value="Delete" />
+        </form>
+
+        <!-- STUDENT PAGE -->
+
         <% } %> <% if (user.role === 'student') { %>
 
         <ul class="list-group list-group-flush mb-3">
@@ -86,10 +130,30 @@
             completed %>
           </li>
         </ul>
+        console.log('user', user);
+        
+        
+        <h5 class="mt-4">Leave a course</h5>
+        <form action="/api/v1/courses/leaveCourse" method="POST">
+          <input type="hidden" name="_method" value="PATCH">
+          <select
+            name="course"
+            class="form-select my-4"
+            aria-label="Default select example"
+          >
+            <% courses.forEach(course => { %>
 
-        <a class="btn btn-primary" href="/api/v1/users/becomeTeacher"
-          >Become a teacher (Test Version)</a
-        >
+            <option id="<%=course.id%>" value="<%=course.id%>">
+              <%=course.title%>
+            </option>
+
+            <% }) %>
+          </select>
+
+          <input type="submit" class="btn btn-danger" value="Leave" />
+        </form>
+
+       
         <% } %> <% if (locals.messages.success) { %> <%
         messages.success.forEach( el => { %>
         <div class="mt-4 alert alert-success"><%= el.msg %></div>

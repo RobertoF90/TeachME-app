@@ -1,4 +1,6 @@
 const Course = require('../models/CourseModel');
+const Homework = require('../models/HomeworkModel');
+
 const User = require('../models/User');
 
 exports.getAllCourses = async (req, res) => {
@@ -68,16 +70,26 @@ exports.enrollCourse = async (req, res) => {
 
 exports.leaveCourse = async (req, res) => {
   try {
-    await User.updateOne(
-      { _id: res.locals.user.id },
+    console.log(req.body)
+    await Course.updateOne(
+      { _id: req.body.course },
       {
-        $pull: { courses: req.params.id },
+        $pull: { students: res.locals.user.id },
       }
     );
-    res.status(200).json({
-      status: 'success',
-    });
+    res.status(200).redirect('/profile')
   } catch (error) {
     console.error(error);
   }
 };
+
+exports.deleteCourse =  async  (req, res) => {
+  try {
+    await Homework.deleteMany({course: req.body.course}) 
+
+      await Course.deleteOne({ _id: req.body.course})
+      res.redirect('/profile')
+  } catch (err) {
+      console.log(err)
+  }
+}

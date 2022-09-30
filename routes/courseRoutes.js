@@ -11,6 +11,8 @@ router.get('/:id', coursesController.getOneCourse);
 
 router.get('/:id/enroll', coursesController.enrollCourse);
 
-router.patch('/leave/:id', coursesController.leaveCourse);
+router.patch('/leaveCourse/', coursesController.leaveCourse);
+
+router.delete('/deleteCourse',coursesController.deleteCourse)
 
 module.exports = router;

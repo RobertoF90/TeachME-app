@@ -12,4 +12,6 @@ router.post('/:id/check', homeworkController.checkHomework);
 
 router.get('/:id', homeworkController.getOneHomework);
 
+router.delete('/deleteHomework',homeworkController.deleteHomework)
+
 module.exports = router;

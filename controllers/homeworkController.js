@@ -125,3 +125,12 @@ exports.checkHomework = async (req, res) => {
     console.log(err);
   }
 };
+
+exports.deleteHomework =  async  (req, res) => {
+  try {
+      await Homework.deleteOne({ _id: req.body.homework})
+      res.redirect('/profile')
+  } catch (err) {
+      console.log(err)
+  }
+}
