@@ -28,7 +28,7 @@ exports.getUserProfile = async (req, res) => {
 
     const homework = await Homework.find({
       course: courses,
-    })
+    });
     res.render('profilePage', {
       formatText,
       username,
@@ -151,7 +151,7 @@ exports.getCreateHomework = async (req, res) => {
 exports.getCreateCourse = async (req, res) => {
   const username = res.locals.user.username;
   const students = await User.find();
-  const courses = await Courses.find().populate({
+  const courses = await Courses.find({ teacher: res.locals.user.id }).populate({
     path: 'students',
   });
 
