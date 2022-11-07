@@ -71,6 +71,9 @@
         <% })%> <% if (locals.messages.errors) { %> <% messages.errors.forEach(
         el => { %>
         <div class="alert alert-danger"><%= el.msg %></div>
+        <% }) %> <% } %> <% if (locals.messages.success) { %> <%
+        messages.success.forEach( el => { %>
+        <div class="mt-4 alert alert-success"><%= el.msg %></div>
         <% }) %> <% } %>
       </main>
     </div>

@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const flash = require('express-flash');
-const methodOverride = require('method-override')
+const methodOverride = require('method-override');
 
 const viewRouter = require('./routes/viewRoutes');
 const authRouter = require('./routes/auth');
@@ -38,12 +38,12 @@ app.use(
   methodOverride(function (req, res) {
     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
       // look in urlencoded POST bodies and delete it
-      let method = req.body._method
-      delete req.body._method
-      return method
+      let method = req.body._method;
+      delete req.body._method;
+      return method;
     }
   })
-)
+);
 
 // Session
 
