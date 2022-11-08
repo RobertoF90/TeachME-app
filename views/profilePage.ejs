@@ -77,7 +77,7 @@
         <h5 class="mt-4">Delete a course</h5>
 
         <form action="/api/v1/courses/deleteCourse" method="POST">
-          <input type="hidden" name="_method" value="DELETE">
+          <input type="hidden" name="_method" value="DELETE" />
           <select
             name="course"
             class="form-select my-4"
@@ -95,10 +95,9 @@
           <input type="submit" class="btn btn-danger" value="Delete" />
         </form>
 
-
         <h5 class="mt-4">Delete homework</h5>
         <form action="/api/v1/homework/deleteHomework" method="POST">
-          <input type="hidden" name="_method" value="DELETE">
+          <input type="hidden" name="_method" value="DELETE" />
           <select
             name="homework"
             class="form-select my-4"
@@ -130,12 +129,10 @@
             completed %>
           </li>
         </ul>
-        console.log('user', user);
-        
-        
-        <h5 class="mt-4">Leave a course</h5>
+
+        <h5 class="mt-4 text-center">Leave a course</h5>
         <form action="/api/v1/courses/leaveCourse" method="POST">
-          <input type="hidden" name="_method" value="PATCH">
+          <input type="hidden" name="_method" value="PATCH" />
           <select
             name="course"
             class="form-select my-4"
@@ -150,10 +147,14 @@
             <% }) %>
           </select>
 
-          <input type="submit" class="btn btn-danger" value="Leave" />
+          <input
+            type="submit"
+            class="btn btn-danger mt-4 d-block mx-auto"
+            style="width: 75px"
+            value="Leave"
+          />
         </form>
 
-       
         <% } %> <% if (locals.messages.success) { %> <%
         messages.success.forEach( el => { %>
         <div class="mt-4 alert alert-success"><%= el.msg %></div>

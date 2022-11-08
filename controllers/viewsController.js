@@ -134,7 +134,7 @@ exports.enrollCourses = async (req, res) => {
 exports.getCreateHomework = async (req, res) => {
   try {
     const username = res.locals.user.username;
-    const courses = await Courses.find();
+    const courses = await Courses.find({ teacher: res.locals.user.id });
     const course = await Courses.findById({ _id: req.params.id }).populate({
       path: 'students',
     });

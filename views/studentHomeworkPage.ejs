@@ -40,8 +40,8 @@
       </aside>
       <main style="min-height: 90vh" class="col-9 overflow-scroll">
         <div class="offset-md-4">
-          <h2 class="my-2 mb-4"><%= homework.title %></h2>
-          <h3 class="my-2 mb-4"><%= homework.task %></h3>
+          <h2 class="my-2 mb-4 text-center"><%= homework.title %></h2>
+          <h3 class="my-2 mb-4 text-center"><%= homework.task %></h3>
         </div>
         <form action="/api/v1/homework/<%=homework.id%>/deliver" method="POST">
           <textarea name="body" id="body">
@@ -50,7 +50,8 @@
           >
 
           <input
-            class="btn btn-primary mt-4 offset-md-5"
+            class="btn btn-primary mt-4 d-block mx-auto"
+            style="width: 75px"
             type="submit"
             value="Submit"
           />

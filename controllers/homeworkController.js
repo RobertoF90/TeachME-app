@@ -38,6 +38,13 @@ exports.createHomework = async (req, res, next) => {
       path: 'students',
     });
 
+    const { title, task } = req.body;
+
+    if (!title || !task) {
+      req.flash('errors', { msg: `Please provide a title and a task!` });
+      res.redirect(`/courses/${req.body.course}/newHomework`);
+    }
+
     if (assignTo === 'Everyone') {
       const students = course.students;
       students.forEach(async (student) => {
@@ -126,11 +133,11 @@ exports.checkHomework = async (req, res) => {
   }
 };
 
-exports.deleteHomework =  async  (req, res) => {
+exports.deleteHomework = async (req, res) => {
   try {
-      await Homework.deleteOne({ _id: req.body.homework})
-      res.redirect('/profile')
+    await Homework.deleteOne({ _id: req.body.homework });
+    res.redirect('/profile');
   } catch (err) {
-      console.log(err)
+    console.log(err);
   }
-}
+};
