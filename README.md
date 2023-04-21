@@ -2,6 +2,11 @@
 
 TeachME is a web app that helps teacher and students tracking and managing their homework.
 
+# UPDATE 
+
+This is a prototype I'm in the process in developing. 
+Version 2.0 can be found here: https://teachme-app2.onrender.com/
+
 # Install
 
 `npm install`
